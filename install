@@ -33,3 +33,5 @@ done
 
 echo "$PACKAGE installed"
 cd $pwd
+
+echo -e "\nTo set a static IP, run:\n  pi-os-ip-set-static \n"
