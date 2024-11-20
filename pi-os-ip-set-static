@@ -98,4 +98,6 @@ nmcli con mod "Wired connection 1" ipv4.dns $dns
 nmcli c down "Wired connection 1" && sudo nmcli c up "Wired connection 1"
 
 echo "Configuration applied. Current network configuration:"
-nmcli -p connection show
+echo "IP Address: $(nmcli -g ipv4.addresses connection show 'Wired connection 1')"
+echo "Gateway: $(nmcli -g ipv4.gateway connection show 'Wired connection 1')"
+echo "DNS: $(nmcli -g ipv4.dns connection show 'Wired connection 1')"
