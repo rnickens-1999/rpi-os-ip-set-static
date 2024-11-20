@@ -3,7 +3,7 @@
 set -uo pipefail
 
 readonly PACKAGE="rpi-os-ip-set-static"
-readonly DOWNLOAD_REPOSITORY="https://raw.githubusercontent.com/rnickens-1999/rpi-os-ip-set-static"
+readonly DOWNLOAD_REPOSITORY="https://raw.githubusercontent.com/rnickens-1999/rpi-os-ip-set-static/main"
 readonly FILES_2_DOWNLOAD"=pi-os-ip-set-static"
 readonly TMP_DIR=$(mktemp -d)
 readonly INSTALLATION_DIR="/usr/local/sbin"
