@@ -1,0 +1,35 @@
+#!/bin/bash
+
+set -uo pipefail
+
+readonly PACKAGE="rpi-os-ip-set-static"
+readonly DOWNLOAD_REPOSITORY="https://raw.githubusercontent.com/geerlingguy/rpi-clone/master"
+readonly FILES_2_DOWNLOAD"=pi-os-ip-set-static"
+readonly TMP_DIR=$(mktemp -d)
+readonly INSTALLATION_DIR="/usr/local/sbin"
+
+
+pwd=$PWD
+trap "{ cd $pwd; rmdir $TMP_DIR &>/dev/null; }" SIGINT SIGTERM EXIT
+cd $TMP_DIR
+
+echo "Installing $PACKAGE ..."
+
+for file in $FILES_2_DOWNLOAD; do
+
+	echo -n "Downloading $file from $DOWNLOAD_REPOSITORY/$file ... "
+	http_code=$(curl -w "%{http_code}" -L -s $DOWNLOAD_REPOSITORY/$file -o $file)
+	(( $? )) && { echo "Curl failed"; exit 1; }
+	[[ $http_code != 200 ]] && { echo "http request failed with $http_code"; exit 1; }
+	echo "done"
+	echo -n "Installing $file into $INSTALLATION_DIR ... "
+	sudo chmod +x $file
+	(( $? )) && { echo "chmod failed"; exit 1; }
+	sudo mv $file $INSTALLATION_DIR
+	(( $? )) && { echo "mv failed"; exit 1; }
+	echo "done"
+
+done
+
+echo "$PACKAGE installed"
+cd $pwd
