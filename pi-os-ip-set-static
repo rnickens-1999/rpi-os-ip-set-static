@@ -3,8 +3,9 @@
 # Check if running on Raspberry Pi OS version 12 (Bookworm)
 os_name=$(lsb_release -si)
 os_version=$(lsb_release -sr)
+os_codename=$(lsb_release -sc)
 
-if [[ "$os_name" != "Raspbian" || "$os_version" != "12" ]]; then
+if [[ "$os_name" != "Debian" || "$os_version" != "12" || "$os_codename" != "bookworm" ]]; then
     echo "This script is intended to run on Raspberry Pi OS version 12 (Bookworm). Exiting."
     exit 1
 fi
